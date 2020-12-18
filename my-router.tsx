@@ -4,12 +4,9 @@ import { matchPath, compilePath } from "./lib";
 
 export const Router = (props) => {
   useEffect(() => {
-    window.onpopstate = function () {
-      console.log(2323);
-    };
+    history.notifyAll();
   }, []);
-  const Child = props.children;
-  return <p>{props.children}</p>;
+  return <>{props.children}</>;
 };
 
 export const Switch = () => {};
@@ -18,20 +15,31 @@ interface IRouteProps {
   path: string;
   component?: () => JSX.Element;
   render?: () => JSX.Element;
-  exact: boolean;
-  strict: boolean;
-  sensitive: boolean;
+  exact?: boolean;
+  strict?: boolean;
+  sensitive?: boolean;
 }
-export const Route = (props: IRouteProps) => {
-  const { path, component, render, exact, strict, sensitive } = props;
+export const Route = ({
+  path,
+  component,
+  render,
+  exact = false,
+  strict = false,
+  sensitive = false,
+}: IRouteProps) => {
   const [match, setMatch] = useState(false);
   const pathReAndKeys = compilePath(path, { exact, strict, sensitive });
   useEffect(
     () =>
       history.listen(() => {
         const pathname = location.pathname;
-        debugger;
-        // setMatch(matchPath(pathname, props, pathReAndKeys));
+        setMatch(
+          !!matchPath(
+            pathname,
+            { path, component, render, exact, strict, sensitive },
+            pathReAndKeys
+          )
+        );
       }),
     []
   );

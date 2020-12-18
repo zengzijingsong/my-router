@@ -8,6 +8,7 @@ class History {
 
   push = (path: string) => {
     his.pushState({}, "", path);
+    this.notifyAll();
   };
 
   listen = (listener) => {
