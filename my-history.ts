@@ -1,6 +1,7 @@
 const his = window.history;
 class History {
   listeners: any[] = [];
+  currentParams: Object = {};
 
   constructor() {
     this.listeners = [];
@@ -25,4 +26,10 @@ class History {
   };
 }
 
-export default new History();
+const history = new History();
+
+export default history;
+
+export const useParams = <T extends Object>(): T => {
+  return history.currentParams as T;
+};

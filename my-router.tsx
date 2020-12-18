@@ -5,6 +5,9 @@ import { matchPath, compilePath } from "./lib";
 export const Router = (props) => {
   useEffect(() => {
     history.notifyAll();
+    window.onpopstate = function () {
+      history.notifyAll();
+    };
   }, []);
   return <>{props.children}</>;
 };
@@ -33,13 +36,15 @@ export const Route = ({
     () =>
       history.listen(() => {
         const pathname = location.pathname;
-        setMatch(
-          !!matchPath(
-            pathname,
-            { path, component, render, exact, strict, sensitive },
-            pathReAndKeys
-          )
+        const a = matchPath(
+          pathname,
+          { path, component, render, exact, strict, sensitive },
+          pathReAndKeys
         );
+        if (a) {
+          history.currentParams = a.params;
+        }
+        setMatch(!!a);
       }),
     []
   );
