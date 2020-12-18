@@ -12,6 +12,11 @@ class History {
     this.notifyAll();
   };
 
+  replace = (path: string) => {
+    his.replaceState({}, "", path);
+    this.notifyAll();
+  };
+
   listen = (listener) => {
     this.listeners.push(listener);
     return () => {

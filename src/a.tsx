@@ -6,6 +6,6 @@ export default () => (
   <>
     <p>This is component a</p>
     <p onClick={() => history.push("/b")}>Click to jump to b</p>
-    <Link to="b">This is from Link</Link>
+    <Link to="d">This is from Link</Link>
   </>
 );
