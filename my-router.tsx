@@ -61,3 +61,20 @@ export const Route = ({
 
   return match && getRender();
 };
+
+export const Link = (props: {
+  to: string;
+  onClick?: () => void;
+  children?: JSX.Element | string | number;
+}) => {
+  const handleClick = (e: React.MouseEvent) => {
+    props.onClick && props.onClick();
+    e.preventDefault();
+    history.push(props.to);
+  };
+  return (
+    <a {...props} onClick={handleClick}>
+      {props.children}
+    </a>
+  );
+};
