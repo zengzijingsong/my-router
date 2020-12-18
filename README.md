@@ -1,4 +1,6 @@
-# New Project
+# My Router app to implement the React Router
+
+## Refer to app.tsx for usage :)
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
